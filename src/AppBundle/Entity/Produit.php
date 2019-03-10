@@ -46,12 +46,8 @@ class Produit
     protected $concurent;
 
 
-public function __construct($nom=null,$dossier, \AppBundle\Entity\Produit $concurent = null)
+public function __construct()
     {
-      $this->nom=$nom;
-      $this->id=$nom;
-      $this->dossier=$dossier;
-      $this->concurent=$concurent;
     }
     /**
      * Get id
