@@ -68,6 +68,7 @@ public function __construct()
     public function setNom($nom)
     {
         $this->nom = $nom;
+        $this->id = $nom;
 
         return $this;
     }
@@ -79,6 +80,7 @@ public function __construct()
      */
     public function getNom()
     {
+
         return $this->nom;
     }
 
