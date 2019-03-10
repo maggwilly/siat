@@ -45,7 +45,7 @@ load_default_etape:
 
 user_homepage:
     path:     /v1/home
-    defaults: { _controller: "AppBundle:App:dernier" }
+    defaults: { _controller: "AppBundle:App:periode" }
     methods:  GET
 
 statistiques_periode:

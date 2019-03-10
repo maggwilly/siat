@@ -78,6 +78,41 @@ class AppController extends Controller
                 ));
     }
 
+    /**
+     * Lists all etape entities.
+     *
+     */
+    public function periodeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $session = $this->getRequest()->getSession();
+        $region=$session->get('region');
+        $startDate=$session->get('startDate',date('Y').'-01-01');
+        $endDate=$session->get('endDate', date('Y').'-12-31');
+        $nombrePointVente = $em->getRepository('AppBundle:PointVente')->nombrePointVente($region);
+        $nombrePointVenteVisite = $em->getRepository('AppBundle:PointVente')->nombrePointVenteVisite($region,$startDate, $endDate);
+        $nombreVisite = $em->getRepository('AppBundle:Visite')->nombreVisite($region,$startDate, $endDate);
+        $excApp = $em->getRepository('AppBundle:Visite')->excAppPeriode($region,$startDate, $endDate);
+        $excAppParSemaine = $em->getRepository('AppBundle:Visite')->excAppParSemaine($region,$startDate, $endDate);
+        $stockSiatParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('produit',$region,$startDate, $endDate);
+        $stockConParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('concurrence',$region,$startDate, $endDate);
+        $situations = $em->getRepository('AppBundle:Situation')->stockParProduitPeriode($region,$startDate, $endDate);  
+     //$concurents=array_column($situationsComparee, 'nomcon', 'id');
+       $colors=array("#FF6384","#36A2EB","#FFCE56","#F7464A","#FF5A5E","#46BFBD", "#5AD3D1","#FDB45C","#FFC870", "#5AE4D1","#FDB478","#FFD973");
+        return $this->render('statistiques/periode.html.twig',
+            array(
+                'nombrePointVente'=>$nombrePointVente ,
+                'nombrePointVenteVisite'=>$nombrePointVenteVisite,
+                'nombreVisite'=>$nombreVisite,
+                'taux'=>$excApp[0],
+                'colors'=>$colors,
+                'stockSiatParSemaine'=>$stockSiatParSemaine,
+                'stockConParSemaine'=>$stockConParSemaine,
+                'excAppParSemaine'=>$excAppParSemaine,
+                'situations'=>$situations
+                ));
+    }
 
    public function stockDernierExcelAction($name=null)
     {
@@ -137,41 +172,6 @@ class AppController extends Controller
     }
 
  
-    /**
-     * Lists all etape entities.
-     *
-     */
-    public function periodeAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $session = $this->getRequest()->getSession();
-        $region=$session->get('region');
-        $startDate=$session->get('startDate',date('Y').'-01-01');
-        $endDate=$session->get('endDate', date('Y').'-12-31');
-        $nombrePointVente = $em->getRepository('AppBundle:PointVente')->nombrePointVente($region);
-        $nombrePointVenteVisite = $em->getRepository('AppBundle:PointVente')->nombrePointVenteVisite($region,$startDate, $endDate);
-        $nombreVisite = $em->getRepository('AppBundle:Visite')->nombreVisite($region,$startDate, $endDate);
-        $excApp = $em->getRepository('AppBundle:Visite')->excAppPeriode($region,$startDate, $endDate);
-        $excAppParSemaine = $em->getRepository('AppBundle:Visite')->excAppParSemaine($region,$startDate, $endDate);
-        $stockSiatParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('produit',$region,$startDate, $endDate);
-        $stockConParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('concurrence',$region,$startDate, $endDate);
-        $situations = $em->getRepository('AppBundle:Situation')->stockParProduitPeriode($region,$startDate, $endDate);  
-     //$concurents=array_column($situationsComparee, 'nomcon', 'id');
-       $colors=array("#FF6384","#36A2EB","#FFCE56","#F7464A","#FF5A5E","#46BFBD", "#5AD3D1","#FDB45C","#FFC870", "#5AE4D1","#FDB478","#FFD973");
-        return $this->render('statistiques/periode.html.twig',
-            array(
-                'nombrePointVente'=>$nombrePointVente ,
-                'nombrePointVenteVisite'=>$nombrePointVenteVisite,
-                'nombreVisite'=>$nombreVisite,
-                'taux'=>$excApp[0],
-                'colors'=>$colors,
-                'stockSiatParSemaine'=>$stockSiatParSemaine,
-                'stockConParSemaine'=>$stockConParSemaine,
-                'excAppParSemaine'=>$excAppParSemaine,
-                'situations'=>$situations
-                ));
-    }
 
 
        public function stockPeriodeExcelAction($name=null)
