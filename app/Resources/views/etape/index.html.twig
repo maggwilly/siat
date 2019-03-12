@@ -28,7 +28,7 @@
                                                         <tr>
                                                             <th>#Auditeur</th>
                                                             <th>Visite</th>
-                                                            <th>Derniere visite</th>
+                                                            <th>Nombre de jours</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -37,8 +37,8 @@
                                                             <td><a target="_blank" href="{{ path('user_show',{'id':visiteParUser.id}) }}">{{visiteParUser.nom}}</a></td>
                                                             <td>{{visiteParUser.nombre}}</td>
                                                             <td>
-                                                         {% if visiteParUser.date %}
-                                                        {{visiteParUser.date |date('d/m/Y')}}
+                                                         {% if visiteParUser.nbrejours %}
+                                                       <td>{{visiteParUser.nbrejours|default(0)}}</td>
                                                          {% else %}
                                                            Aucune visite
                                                          {% endif %}
