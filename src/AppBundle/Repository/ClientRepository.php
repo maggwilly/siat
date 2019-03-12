@@ -32,8 +32,10 @@ class ClientRepository extends \Doctrine\ORM\EntityRepository
             $qb->select('count(DISTINCT pv.date) as nbrejours')
             ->addSelect('sum(s.stock) as stock')
             ->addSelect('u.id')
+            ->addSelect('u.username')
              ->addSelect('u.nom')
              ->addGroupBy('u.nom')
+             ->addGroupBy('u.username')
             ->addGroupBy('u.id')
             ->addSelect('count(DISTINCT pv.id) as nombre'); 
           return $qb->getQuery()->getArrayResult();
