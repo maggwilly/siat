@@ -111,7 +111,7 @@ A corriger: en cas de plusieur visite par point de vente ca fausse
 
     $qb = $this->createQueryBuilder('p')->leftJoin('p.situations','s')->leftJoin('s.visite','v')->leftJoin('v.pointVente','pv');
     if($region!=null){
-       $qb->where('pv.ville=:ville or v.ville is NULL')
+       $qb->where('pv.ville=:ville or pv.ville is NULL')
       ->setParameter('ville', $region);
       }
       if($startDate!=null){
