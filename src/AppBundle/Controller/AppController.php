@@ -95,13 +95,15 @@ class AppController extends Controller
         $stockSiatParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('produit',$region,$startDate, $endDate);
         $stockConParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('concurrence',$region,$startDate, $endDate);
         $situations = $em->getRepository('AppBundle:Situation')->stockParProduitPeriode($region,$startDate, $endDate);  
-     //$concurents=array_column($situationsComparee, 'nomcon', 'id');
+        $visitesParUser = $em->getRepository('AppBundle:Client')->visitesParUser($region,$startDate, $endDate);
+        //$concurents=array_column($situationsComparee, 'nomcon', 'id');
        $colors=array("#FF6384","#36A2EB","#FFCE56","#F7464A","#FF5A5E","#46BFBD", "#5AD3D1","#FDB45C","#FFC870", "#5AE4D1","#FDB478","#FFD973");
         return $this->render('statistiques/periode.html.twig',
             array(
                 'nombrePointVente'=>$nombrePointVente ,
                 'nombrePointVenteVisite'=>$nombrePointVenteVisite,
                 'nombreVisite'=>$nombreVisite,
+                'visitesParUser'=>$visitesParUser,
                 'taux'=>$excApp[0],
                 'colors'=>$colors,
                 'stockSiatParSemaine'=>$stockSiatParSemaine,
