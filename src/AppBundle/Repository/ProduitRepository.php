@@ -125,7 +125,8 @@ A corriger: en cas de plusieur visite par point de vente ca fausse
        ->addSelect('p.id')
        ->addGroupBy('p.id')->addGroupBy('p.nom')
       ->addSelect('sum(s.stock) as sd')
-      ->addSelect('avg(s.stock) as moyenne')->addSelect('count(s.stockG) as presence');
+      ->addSelect('avg(s.stock) as moyenne')
+      ->addSelect('count(s.stockG) as presence');
       try {  
       return $qb->getQuery()->getArrayResult();
       } catch (NoResultException $e) {

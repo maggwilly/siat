@@ -211,14 +211,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                             
                                                     {% for situation in situations if situation.dossier=='produit' %}
                                                         <tr>
                                                             <td class="col-md-4"><a href="#">{{situation.nom}}</a></td>
                                                              <td>{{(situation.sd)|number_format(0, '.', ' ')}}</td>
                                                             <td>{{(situation.moyenne)|number_format(0, '.', ' ')}}</td>
-                                                             <td>{%if totalStockSiat>0 %}{{(situation.sd*100/totalStockSiat)|number_format(0, '.', ' ')}}%{% else  %}--{%endif %}</td>                                    
-                                                            <td>{{(situation.presence*100/nombrePointVente)|number_format(0, '.', ' ')}}%</td>
+                                                             <td>
+                                                            {% if totalStockSiat>0 %}{{(situation.sd*100/totalStockSiat)|number_format(0, '.', ' ')}}%
+                                                             {% else  %}
+                                                                -- {% endif %}</td>
+                                                             <td>
+                                                            {% if nombrePointVente>0 %}
+                                                                {{(situation.presence*100/nombrePointVente)|number_format(0, '.', ' ')}}%
+                                                            {% else  %}
+                                                                --
+                                                            {% endif %}
+                                                            </td>
                                                         </tr>
                                                         {%endfor%}
                                                         <tr>
