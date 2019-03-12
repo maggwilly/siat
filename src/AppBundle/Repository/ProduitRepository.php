@@ -109,9 +109,9 @@ A corriger: en cas de plusieur visite par point de vente ca fausse
   */
   public function stockParProduit ($region=null, $startDate=null, $endDate=null){
 
-    $qb = $this->createQueryBuilder('p')->leftJoin('p.situations','s')->join('s.visite','v')->join('v.pointVente','pv');
+    $qb = $this->createQueryBuilder('p')->leftJoin('p.situations','s')->leftJoin('s.visite','v')->leftJoin('v.pointVente','pv');
     if($region!=null){
-       $qb->where('pv.ville=:ville v.ville is NULL')
+       $qb->where('pv.ville=:ville or v.ville is NULL')
       ->setParameter('ville', $region);
       }
       if($startDate!=null){
