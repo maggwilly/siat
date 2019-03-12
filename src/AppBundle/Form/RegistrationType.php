@@ -11,7 +11,7 @@
             $builder->add('nom')->add('ville', 'choice', array(
                                'required' => true,
                                'choices'=>array(
-                                          'Brazaville'=>'Brazaville','Pointe Noir'=>'Pointe Noir',)));
+                                          'Brazaville'=>'Brazzaville','Pointe-Noire'=>'Pointe Noire',)));
         }
   //personnalis2
         public function getParent()
