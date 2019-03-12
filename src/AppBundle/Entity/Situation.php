@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="situation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SituationRepository")
+ *@ORM\HasLifecycleCallbacks()
  */
 class Situation
 {
@@ -108,6 +109,16 @@ class Situation
        $this->stock=$stock;
 
     }
+
+   /**
+* @ORM\PrePersist()
+*/
+ public function prePersist(){
+        if ($this->stock==0) {
+            $this->stockG=null;
+        }else   
+        $this->stockG=0;
+ } 
     /**
      * Get id
      *

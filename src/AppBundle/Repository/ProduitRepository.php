@@ -102,6 +102,38 @@ A corriger: en cas de plusieur visite par point de vente ca fausse
      
   }
 
+
+ /**
+  *Nombre de point de vente qui respectent le prix au detail par produit
+  * Nombre de point de vente qui respectent le prix en gros par produit
+  */
+  public function stockParProduit ($region=null, $startDate=null, $endDate=null){
+
+    $qb = $this->createQueryBuilder('p')->leftJoin('p.situations','s')->join('s.visite','v')->join('v.pointVente','pv');
+    if($region!=null){
+       $qb->where('pv.ville=:ville')
+      ->setParameter('ville', $region);
+      }
+      if($startDate!=null){
+       $qb->andWhere('v.date>=:startDate')->setParameter('startDate', new \DateTime($startDate));
+      }
+      if($endDate!=null){
+       $qb->andWhere('v.date<=:endDate')->setParameter('endDate',new \DateTime($endDate));
+      }
+     
+       $qb->select('p.nom')
+       ->addSelect('p.id')
+       ->addGroupBy('p.id')->addGroupBy('p.nom')
+      ->addSelect('sum(s.stock) as sd')
+      ->addSelect('avg(s.stock) as moyenne')->addSelect('count(s.stockG) as presence');
+      try {  
+      return $qb->getQuery()->getArrayResult();
+      } catch (NoResultException $e) {
+        return array();
+    }
+ 
+}
+
 //situation comparee
 
 

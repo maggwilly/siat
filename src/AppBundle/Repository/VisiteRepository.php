@@ -116,6 +116,8 @@ class VisiteRepository extends EntityRepository
      }
   }
 
+
+
     /**
   *Nombre total de visite effectue par point de vente 
   */

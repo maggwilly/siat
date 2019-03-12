@@ -16,7 +16,7 @@ class ClientRepository extends \Doctrine\ORM\EntityRepository
   */
   public function visitesParUser ( $region=null, $startDate=null, $endDate=null){
 
-       $qb = $this->createQueryBuilder('u')->leftJoin('u.visites','v')->leftJoin('v.pointVente','pv');
+       $qb = $this->createQueryBuilder('u')->leftJoin('u.visites','v')->leftJoin('v.pointVente','pv')->leftJoin('v.situations','s');
   
         if($region!=null){
            $qb->where('pv.ville=:ville')
@@ -29,16 +29,18 @@ class ClientRepository extends \Doctrine\ORM\EntityRepository
            $qb->andWhere('v.date is null or v.date<=:endDate')->setParameter('endDate',new \DateTime($endDate));
           }
  
-            $qb->select('max(v.date) as date');
-            $qb->addSelect('u.id');
-             $qb->addSelect('u.nom');
-             $qb->addGroupBy('u.nom');
-            $qb->addGroupBy('u.id');
-            $qb->addSelect('count(v.id) as nombre'); 
+            $qb->select('count(DISTINCT pv.date) as nbrejours')
+            ->addSelect('sum(s.stock) as stock')
+            ->addSelect('u.id')
+             ->addSelect('u.nom')
+             ->addGroupBy('u.nom')
+            ->addGroupBy('u.id')
+            ->addSelect('count(DISTINCT pv.id) as nombre'); 
           return $qb->getQuery()->getArrayResult();
      
   }
 
+   
   /**
   *Nombre de synchro effectue par utilisateur 
   */

@@ -50,4 +50,32 @@ class SituationRepository extends EntityRepository
 
       return  $result = $statement->fetchAll();
   } 
+
+
+ /**
+  *Nombre de point de vente qui respectent le prix au detail par produit
+  * Nombre de point de vente qui respectent le prix en gros par produit
+  */
+  public function totalStock($region=null, $startDate=null, $endDate=null){
+
+    $qb = $this->createQueryBuilder('s')->join('s.visite','v')->join('v.pointVente','pv');
+    if($region!=null){
+       $qb->where('pv.ville=:ville')
+      ->setParameter('ville', $region);
+      }
+      if($startDate!=null){
+       $qb->andWhere('v.date>=:startDate')->setParameter('startDate', new \DateTime($startDate));
+      }
+      if($endDate!=null){
+       $qb->andWhere('v.date<=:endDate')->setParameter('endDate',new \DateTime($endDate));
+      }
+     
+       $qb->select('sum(s.stock) as stock');
+      try {  
+      return $qb->getQuery()->getSingleScalarResult();
+      } catch (NoResultException $e) {
+        return 0;
+    }
+ 
+}  
 }

@@ -44,12 +44,11 @@ class AppController extends Controller
         $nombrePointVente = $em->getRepository('AppBundle:PointVente')->nombrePointVente($region);
         $nombrePointVenteVisite = $em->getRepository('AppBundle:PointVente')->nombrePointVenteVisite($region,$startDate, $endDate);
         $nombreVisite = $em->getRepository('AppBundle:Visite')->nombreVisite($region,$startDate, $endDate);
+        $totalStock = $em->getRepository('AppBundle:Situation')->totalStock($region,$startDate, $endDate);
         $excApp = $em->getRepository('AppBundle:Visite')->excAppDerniere($region,$startDate, $endDate);
-        $excAppParSemaine = $em->getRepository('AppBundle:Visite')->excAppParSemaine($region,$startDate, $endDate);
-        $stockSiatParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('produit',$region,$startDate, $endDate);
-        $stockConParSemaine = $em->getRepository('AppBundle:Produit')->stockSemaine('concurrence',$region,$startDate, $endDate);
-        $situations = $em->getRepository('AppBundle:Situation')->stockParProduitDernier($region,$startDate, $endDate);
-       
+
+        $situations = $em->getRepository('AppBundle:Produit')->stockParProduit($region,$startDate, $endDate);
+        $visitesParUser = $em->getRepository('AppBundle:Client')->visitesParUser($region,$startDate, $endDate);
      //$concurents=array_column($situationsComparee, 'nomcon', 'id');
    $colors=array("#FF6384","#36A2EB","#FFCE56","#F7464A","#FF5A5E","#46BFBD", "#5AD3D1","#FDB45C","#FFC870", "#5AE4D1","#FDB478","#FFD973");
         return $this->render('statistiques/derniere.html.twig',
@@ -57,6 +56,7 @@ class AppController extends Controller
                 'nombrePointVente'=>$nombrePointVente ,
                 'nombrePointVenteVisite'=>$nombrePointVenteVisite,
                 'nombreVisite'=>$nombreVisite,
+                'totalStock'=>$totalStock,
                 'tauxExc'=>$nombrePointVenteVisite>0?$excApp[0]['exc']*100/$nombrePointVenteVisite:'--',
                 'exc'=>$excApp[0]['exc'],
                 'tauxMap'=>$nombrePointVenteVisite>0?$excApp[0]['map']*100/$nombrePointVenteVisite:'--',
@@ -69,12 +69,9 @@ class AppController extends Controller
                 'nAff'=>$nombrePointVenteVisite>0?$nombrePointVenteVisite-$excApp[0]['aff']:'--',
                  'tauxpas_client'=>$nombrePointVenteVisite>0?(100-$excApp[0]['pas_client']*100/$nombrePointVenteVisite):'--',
                 'pas_client'=>$excApp[0]['pas_client'],
-               //'concurents'=>$concurents,
                 'colors'=>$colors,
-                'stockSiatParSemaine'=>$stockSiatParSemaine,
-                 'stockConParSemaine'=>$stockConParSemaine,
-                'excAppParSemaine'=>$excAppParSemaine,
-                'situations'=>$situations
+                 'situations'=>$situations,
+                 'visitesParUser'=>$visitesParUser
                 ));
     }
 
