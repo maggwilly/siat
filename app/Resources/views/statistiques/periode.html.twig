@@ -155,12 +155,12 @@
                                                     <tbody>
                                                     {% for visiteParUser in visitesParUser %}
                                                         <tr>
-                                                            <td><a target="_blank" href="{{ path('user_show',{'id':visiteParUser.id}) }}">{{visiteParUser.nom}}</a></td>
-                                                            <td>{{visiteParUser.nbrejours}}</td>
-                                                            <td>{{visiteParUser.nombre}}</td>
+                                                            <td><a target="_blank" href="{{ path('user_show',{'id':visiteParUser.id}) }}">{{visiteParUser.nom|default(visiteParUser.username) }}</a></td>
+                                                            <td>{{visiteParUser.nbrejours|default(0)}}</td>
+                                                            <td>{{visiteParUser.nombre|default(0)}}</td>
                                                             <td>
                                                             {% if visiteParUser.nbrejours is not null and visiteParUser.nbrejours>0 %}
-                                                           <i class="fa fa-arrow-up"></i>      {{(visiteParUser.nombre/(objectif*visiteParUser.nbrejours))|number_format(0, '.', ' ')}}%
+                                                           <i class="fa fa-arrow-up"></i> {{(visiteParUser.nombre/(objectif*visiteParUser.nbrejours))|number_format(0, '.', ' ')}}%
                                                             {% else %}
                                                               ..
                                                             {% endif %}
