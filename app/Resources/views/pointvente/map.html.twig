@@ -40,7 +40,6 @@
        <script type="text/javascript" src="{{ asset('assets/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
        <script type="text/javascript"  src="{{ asset('assets/js/app.js') }}"></script>
   <script>
-   {% set first=pointVentes[0] %}
       var map;
 
       function initMap() {
@@ -52,7 +51,7 @@
             position: new google.maps.LatLng({{pointVente.latitude}}, {{pointVente.longitude}}),
              nom:'{{pointVente.nom}}',
              description:'{{pointVente.description}}',
-             tel:'{{pointVente.telGerant}}',
+             tel:'{{pointVente.tel}}',
              quartier:'{{pointVente.quartier}}',
              link:'{{ path('pointvente_show',{'id':pointVente.id}) }}'
           },
