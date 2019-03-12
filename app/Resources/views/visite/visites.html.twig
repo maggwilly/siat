@@ -54,7 +54,7 @@
                                             </td>                                        
                                             <td class="col-md-2"> {{visite.pointVente.nom}}</td>
                                              <td > {{visite.pointVente.matricule}}</td>
-                                            <td >{{visite.user.nom}}</td>
+                                            <td >{{visite.user.nom|default(visite.user.username)}}</td>
                                             <td > {{visite.date |date('d/m/Y')}} </td>
                                             <td >{% if visite.exc and not visite.pasClient and not visite.pasOuvert%}Oui{% elseif not visite.pasClient and not visite.pasOuvert %}Non{%else %}--{% endif %}</td>                                           
                                             <td >{% if visite.aff and not visite.pasClient and not visite.pasOuvert %}Oui{% elseif not visite.pasClient and not visite.pasOuvert %}Non{%else %}--{% endif %}</td>

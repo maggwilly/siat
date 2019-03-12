@@ -37,7 +37,6 @@ class EtapeController extends Controller
     }
 
 
-
     /**
      * Finds and displays a etape entity.
      *
