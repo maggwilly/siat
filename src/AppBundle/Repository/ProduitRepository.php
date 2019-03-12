@@ -111,14 +111,14 @@ A corriger: en cas de plusieur visite par point de vente ca fausse
 
     $qb = $this->createQueryBuilder('p')->leftJoin('p.situations','s')->join('s.visite','v')->join('v.pointVente','pv');
     if($region!=null){
-       $qb->where('pv.ville=:ville')
+       $qb->where('pv.ville=:ville v.ville is NULL')
       ->setParameter('ville', $region);
       }
       if($startDate!=null){
-       $qb->andWhere('v.date>=:startDate')->setParameter('startDate', new \DateTime($startDate));
+       $qb->andWhere('v.date>=:startDate or v.date is NULL')->setParameter('startDate', new \DateTime($startDate));
       }
       if($endDate!=null){
-       $qb->andWhere('v.date<=:endDate')->setParameter('endDate',new \DateTime($endDate));
+       $qb->andWhere('v.date<=:endDate v.date is NULL')->setParameter('endDate',new \DateTime($endDate));
       }
      
        $qb->select('p.nom')
