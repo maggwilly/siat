@@ -201,7 +201,7 @@ private function getConnectedUser(){
     public function apkAction()
 {
   $request = $this->get('request');
-    $path = $this->get('kernel')->getRootDir(). "/../web/home/apk/siat-congo.apk";
+    $path = $this->get('kernel')->getRootDir(). "/../web/home/apk/siat-congo-mobile.apk";
     $content = file_get_contents($path);
     $response = new Response();
 
