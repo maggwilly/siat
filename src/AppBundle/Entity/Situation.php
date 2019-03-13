@@ -103,7 +103,7 @@ class Situation
       /**
      * Constructor
      */
-    public function __construct(\AppBundle\Entity\Produit $produit,$stock)
+    public function __construct(\AppBundle\Entity\Produit $produit=null,$stock=0)
     {
       $this->produit = $produit;;
        $this->stock=$stock;
