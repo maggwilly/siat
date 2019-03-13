@@ -121,9 +121,8 @@
                             </strong>
                         </label>
                         <select class="" name="region" selected>
-                            <option value="" {% if not app.session.get('region') %} selected="true" {% endif %}>Toutes régions</option>
-                            <option value="Brazaville" {% if app.session.get('region')=='Brazaville' %} selected="true" {% endif %}>Brazzaville</option>
-                            <option value="Pointe-Noire" {% if app.session.get('region')=='Pointe-Noire' %} selected="true" {% endif %}>Pointe-Noire</option>
+                            <option value="Brazaville" {% if app.session.get('region','Brazaville')=='Brazaville' %} selected="true" {% endif %}>Brazzaville</option>
+                            <option value="Pointe-Noire" {% if app.session.get('region','Brazaville')=='Pointe-Noire' %} selected="true" {% endif %}>Pointe-Noire</option>
                         </select>
                         <button class="btn btn-primary btn-sm" type="submit">Afficher les données</button>
                     </form>

@@ -22,7 +22,7 @@ class PointVenteController extends Controller
 
       $session = $this->getRequest()->getSession();
        $em = $this->getDoctrine()->getManager();
-        $region=$session->get('region');
+        $region=$session->get('region','Brazaville');
         $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31');  
        $pointVentes = $em->getRepository('AppBundle:PointVente')->pointVentes($region,$startDate, $endDate);
@@ -40,7 +40,7 @@ class PointVenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
-        $region=$session->get('region');
+        $region=$session->get('region','Brazaville');
         $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31');
         $visites  = $em->getRepository('AppBundle:Visite')->visites(null,null,$startDate, $endDate,$pointVente);
@@ -63,7 +63,7 @@ class PointVenteController extends Controller
 
     $em = $this->getDoctrine()->getManager();
       $session = $this->getRequest()->getSession();
-        $region=$session->get('region');
+        $region=$session->get('region','Brazaville');
         $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31');
       $eligibles = $em->getRepository('AppBundle:PointVente')->eligibles($region,$startDate, $endDate);
@@ -86,7 +86,7 @@ class PointVenteController extends Controller
 
     $em = $this->getDoctrine()->getManager();
       $session = $this->getRequest()->getSession();
-      $region=$session->get('region');
+      $region=$session->get('region','Brazaville');
        $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31');
       $pointVentes = $em->getRepository('AppBundle:PointVente')->pointVentes($region,$startDate, $endDate);
@@ -179,7 +179,7 @@ public function boleanToString($boolVal){
     {
       $em = $this->getDoctrine()->getManager();
       $session = $this->getRequest()->getSession();
-      $region=$session->get('region');
+      $region=$session->get('region','Brazaville');
       $startDate=$session->get('startDate',date('Y').'-01-01');
       $endDate=$session->get('endDate', date('Y').'-12-31');
       $periode= $session->get('periode',' 01/01 - 31/12/'.date('Y'));
@@ -248,7 +248,7 @@ public function boleanToString($boolVal){
     {
       $em = $this->getDoctrine()->getManager();
       $session = $this->getRequest()->getSession();
-      $region=$session->get('region');
+      $region=$session->get('region','Brazaville');
       $startDate=$session->get('startDate',date('Y').'-01-01');
       $endDate=$session->get('endDate', date('Y').'-12-31');
       $periode= $session->get('periode',' 01/01 - 31/12/'.date('Y'));

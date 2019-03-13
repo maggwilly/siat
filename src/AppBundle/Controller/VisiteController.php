@@ -23,7 +23,7 @@ class VisiteController extends Controller
 
         $em = $this->getDoctrine()->getManager();
          $session = $this->getRequest()->getSession();
-        $region=$session->get('region');
+        $region=$session->get('region','Brazaville');
         $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31')
          ;
@@ -45,7 +45,7 @@ class VisiteController extends Controller
 
         $em = $this->getDoctrine()->getManager();
          $session = $this->getRequest()->getSession();
-        $region=$session->get('region');
+        $region=$session->get('region','Brazaville');
         $startDate=$session->get('startDate',date('Y').'-01-01');
         $endDate=$session->get('endDate', date('Y').'-12-31')
          ;
@@ -89,7 +89,7 @@ public function numberToString($intVal,$id=true){
     {
       $em = $this->getDoctrine()->getManager();
       $session = $this->getRequest()->getSession();
-      $region=$session->get('region');
+      $region=$session->get('region','Brazaville');
       $startDate=$session->get('startDate',date('Y').'-01-01');
       $endDate=$session->get('endDate', date('Y').'-12-31');
       $periode= $session->get('periode',' 01/01 - 31/12/'.date('Y'));
