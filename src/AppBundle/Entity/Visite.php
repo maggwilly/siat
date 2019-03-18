@@ -159,6 +159,11 @@ class Visite
     private $situations;
 
     /**
+   * @ORM\OneToMany(targetEntity="AppBundle\Entity\Situation", mappedBy="commende", cascade={"persist","remove"})
+   */
+    private $lignes;
+
+    /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PointVente",inversedBy="visites")
    * @ORM\JoinColumn(nullable=false)
    */
@@ -199,6 +204,7 @@ class Visite
       $this->ecl=$ecl;
        $this->commentaire=$commentaire;
       $this->situations = new \Doctrine\Common\Collections\ArrayCollection();
+       $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id
@@ -495,6 +501,39 @@ class Visite
         return $this->situations;
     }
 
+    /**
+     * Add ligne
+     *
+     * @param \AppBundle\Entity\Ligne $ligne
+     *
+     * @return Commende
+     */
+    public function addLigne(\AppBundle\Entity\Situation $ligne)
+    {
+        $this->lignes[] = $ligne;
+
+        return $this;
+    }
+
+    /**
+     * Remove ligne
+     *
+     * @param \AppBundle\Entity\Ligne $ligne
+     */
+    public function removeLigne(\AppBundle\Entity\Situation $ligne)
+    {
+        $this->lignes->removeElement($ligne);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
     /**
      * Set pointVente
      *

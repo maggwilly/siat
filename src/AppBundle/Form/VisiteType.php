@@ -39,6 +39,7 @@ class VisiteType extends AbstractType
                 'input' => 'datetime' # return a Datetime object (*)
             ))
         ->add('situations',CollectionType::class, array('entry_type'=> SituationType::class,'allow_add' => true))
+         ->add('lignes',CollectionType::class, array('entry_type'=> SituationType::class,'allow_add' => true))
         ->add('pointVente', EntityType::class, array('class' => 'AppBundle:PointVente'))
         ->add('user', EntityType::class, array('class' => 'AppBundle:Client'))        ;
     }

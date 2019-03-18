@@ -94,12 +94,17 @@ class Situation
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Visite",inversedBy="situations")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=true)
    */
   
     private $visite;
 
-
+    /**
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Visite",inversedBy="lignes")
+   * @ORM\JoinColumn(nullable=true)
+   */
+  
+    private $commende;
       /**
      * Constructor
      */
